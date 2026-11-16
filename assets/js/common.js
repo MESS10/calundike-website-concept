@@ -61,7 +61,6 @@
     props: { active: { type: String, default: '' } },
     setup: function () { return { count: count, LOGO: LOGO, LOGO_ALT: LOGO_ALT }; },
     template:
-      '<div class="concept">Design concept for review - not a live shop. Prices, sizes and contact details are placeholders; photos are stand-ins.</div>' +
       '<header class="hdr"><div class="wrap hdr-in">' +
       '<a href="index.html" class="brand" aria-label="Calundike Exports, home"><img :src="LOGO" :alt="LOGO_ALT"></a>' +
       '<nav class="nav" aria-label="Main">' +
