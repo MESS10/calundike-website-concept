@@ -1,19 +1,5 @@
-scene-living.jpg  https://images.unsplash.com/photo-1583847268964-b28dc8f51f92  (Unsplash licence, free)
-sofa-front.jpg  https://images.unsplash.com/photo-1555041469-a586c61ea9bc  (Unsplash licence, free)
-sofa-room.jpg  https://images.unsplash.com/photo-1564078516393-cf04bd966897  (Unsplash licence, free)
-sofa-detail.jpg  https://images.unsplash.com/photo-1590251024078-8a6d9f90b02d  (Unsplash licence, free)
-couch.jpg  https://images.unsplash.com/photo-1512212621149-107ffe572d2f  (Unsplash licence, free)
-coffee-table.jpg  https://images.unsplash.com/photo-1777513538143-8525eb3943f6  (Unsplash licence, free)
-tv-unit.jpg  https://images.unsplash.com/photo-1611484655556-9a86a0cf109b  (Unsplash licence, free)
-bed.jpg  https://images.unsplash.com/photo-1698517486200-e89403ea2738  (Unsplash licence, free)
-wardrobe.jpg  https://images.unsplash.com/photo-1558997519-83ea9252edf8  (Unsplash licence, free)
-dresser.jpg  https://images.unsplash.com/photo-1743058533210-303721a35d4a  (Unsplash licence, free)
-dining.jpg  https://images.unsplash.com/photo-1758977404039-6e834be8eca8  (Unsplash licence, free)
-sideboard.jpg  https://images.unsplash.com/photo-1767963758785-b9def36c13e3  (Unsplash licence, free)
-desk.jpg  https://images.unsplash.com/photo-1749027201411-3826cce29c54  (Unsplash licence, free)
-filing.jpg  https://images.unsplash.com/photo-1544383835-bda2bc66a55d  (Unsplash licence, free)
-boardroom.jpg  https://images.unsplash.com/photo-1431540015161-0bf868a2d407  (Unsplash licence, free)
-bookshelf.jpg  https://images.unsplash.com/photo-1588580000645-4562a6d2c839  (Unsplash licence, free)
+Product photos (assets/img/products): Calundike Exports' own photos, from calundike.co.zw.
+
+Stand-in photos (free Unsplash licence) until the team's own replace them:
 workshop.jpg  https://images.unsplash.com/photo-1687422810663-c316494f725a  (Unsplash licence, free)
 showroom.jpg  https://images.unsplash.com/photo-1687180498602-5a1046defaa4  (Unsplash licence, free)
-storage.jpg  https://images.unsplash.com/photo-1614783198260-34fa8ebfb26e  (Unsplash licence, free)

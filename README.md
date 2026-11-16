@@ -8,7 +8,8 @@ and My account (sign in, first-time activation, a sample signed-in account).
 
 The quote list is kept in the visitor's own browser so it carries across pages.
 
-Photos are free stand-ins from Unsplash (see `assets/img/PHOTO-CREDITS.txt`) until the Calundike team's own product
-photos replace them. The logo is the Calundike Exports logo, unchanged.
+Products, product photos, contact details, the About text and the warranty summary come from calundike.co.zw (which
+shows no prices, so prices stay placeholders). Two stand-in photos (workshop, showroom) are free Unsplash photos - see
+`assets/img/PHOTO-CREDITS.txt`. The logo is the Calundike Exports logo, unchanged.
 
 Static HTML, CSS and Vue 3 (from a CDN); served with GitHub Pages.

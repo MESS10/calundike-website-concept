@@ -40,7 +40,7 @@
       <section class="col-list" aria-label="Pieces">
         <div class="panel" style="padding-top: 8px; padding-bottom: 8px">
           <div v-for="l in lines" :key="l.p.id" style="display: flex; gap: 18px; align-items: center; padding: 18px 0; border-bottom: 1px solid #EEEEF4; flex-wrap: wrap">
-            <a :href="l.p.url"><img :src="l.p.img" alt="" style="display: block; width: 88px; height: 88px; object-fit: cover; border-radius: 12px"></a>
+            <a :href="l.p.url"><img :src="l.p.img" alt="" style="display: block; width: 88px; height: 88px; border-radius: 12px; background: #FFFFFF" :style="{ objectFit: l.p.fit }"></a>
             <div style="flex: 1 1 220px; min-width: 0; display: flex; flex-direction: column; gap: 4px">
               <a :href="l.p.url" class="serif" style="font-size: 19px; color: #14142B; text-decoration: none">{{ l.p.name }}</a>
               <span style="font-size: 14px; color: #4A4A68">{{ l.p.custom ? 'Made to your measurements - put the sizes in "Anything else?"' : l.p.size }}</span>
@@ -167,7 +167,7 @@ CK.mount(function () {
     name: name, phone: phone, way: way, delivery: delivery, agreed: agreed, problem: problem, sent: sent, lines: lines,
     setQty: CK.setQty,
     remove: function (id) { CK.setQty(id, 0); },
-    sample: function () { CK.setQty('lounge', 1); CK.setQty('dining', 1); CK.setQty('unit', 1); },
+    sample: function () { CK.setQty('ruby-presidential-desk', 1); CK.setQty('ruby-executive-wall-unit', 1); CK.setQty('sapphire-dining-table', 1); },
     stdCount: Vue.computed(function () { return lines.value.filter(function (l) { return !l.p.custom; }).length; }),
     customCount: Vue.computed(function () { return lines.value.filter(function (l) { return l.p.custom; }).length; }),
     submit: function () {
