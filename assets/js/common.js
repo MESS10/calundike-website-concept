@@ -57,22 +57,41 @@
   var CHAT = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.4 8.4 0 1 1 21 11.5z"/></svg>';
   var LIST = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M4 6h.01M4 12h.01M4 18h.01"/></svg>';
 
+  var MENU = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>';
+  var CLOSE = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>';
+  var LINKS = [
+    { href: 'catalogue.html', label: 'Catalogue', key: 'catalogue' },
+    { href: 'catalogue.html?kind=made', label: 'Made to measure', key: 'made' },
+    { href: 'index.html#showroom', label: 'Visit the showroom', key: 'showroom' },
+    { href: 'account.html', label: 'My account', key: 'account' }
+  ];
+
+  // Wide screens: logo, links and both buttons on one line. Below laptop width: logo, the quote list and a Menu
+  // button that opens the links underneath.
   var SiteHeader = {
     props: { active: { type: String, default: '' } },
-    setup: function () { return { count: count, LOGO: LOGO, LOGO_ALT: LOGO_ALT }; },
+    setup: function () {
+      var open = Vue.ref(false);
+      return { count: count, LOGO: LOGO, LOGO_ALT: LOGO_ALT, LINKS: LINKS, open: open,
+        close: function () { open.value = false; } };
+    },
     template:
       '<header class="hdr"><div class="wrap hdr-in">' +
       '<a href="index.html" class="brand" aria-label="Calundike Exports, home"><img :src="LOGO" :alt="LOGO_ALT"></a>' +
       '<nav class="nav" aria-label="Main">' +
-      '<a href="catalogue.html" :class="{ on: active === \'catalogue\' }" :aria-current="active === \'catalogue\' ? \'page\' : null">Catalogue</a>' +
-      '<a href="catalogue.html?kind=made">Made to measure</a>' +
-      '<a href="index.html#showroom">Visit the showroom</a>' +
-      '<a href="account.html" :class="{ on: active === \'account\' }" :aria-current="active === \'account\' ? \'page\' : null">My account</a>' +
+      '<a v-for="l in LINKS" :key="l.key" :href="l.href" :class="{ on: active === l.key }" :aria-current="active === l.key ? \'page\' : null">{{ l.label }}</a>' +
       '</nav>' +
       '<div class="hdr-act">' +
-      '<a href="quote-list.html" class="btn btn-line btn-sm">' + LIST + ' Quote list <span class="badge">{{ count }}</span></a>' +
-      '<a href="index.html#contact" class="btn btn-navy btn-sm">' + CHAT + ' WhatsApp us</a>' +
-      '</div></div></header>'
+      '<a href="quote-list.html" class="btn btn-line btn-sm" aria-label="Quote list">' + LIST + '<span class="hide-sm">Quote list</span><span class="badge">{{ count }}</span></a>' +
+      '<a href="index.html#contact" class="btn btn-navy btn-sm hide-md">' + CHAT + ' WhatsApp us</a>' +
+      '<button type="button" class="btn btn-navy btn-sm menu-btn" aria-controls="mnav" :aria-expanded="open ? \'true\' : \'false\'" @click="open = !open">' +
+      '<span v-if="!open" style="display: inline-flex">' + MENU + '</span><span v-else style="display: inline-flex">' + CLOSE + '</span>' +
+      '<span class="hide-sm">Menu</span></button>' +
+      '</div></div>' +
+      '<nav id="mnav" class="mnav" v-show="open" aria-label="Main menu"><div class="wrap">' +
+      '<a v-for="l in LINKS" :key="l.key" class="ml" :href="l.href" :class="{ on: active === l.key }" @click="close">{{ l.label }}</a>' +
+      '<a href="index.html#contact" class="btn btn-navy" @click="close">' + CHAT + ' WhatsApp us</a>' +
+      '</div></nav></header>'
   };
 
   var SiteFooter = {

@@ -23,7 +23,7 @@
 
     <!-- Signed out -->
     <div v-if="!signedIn" class="auth">
-      <div style="background: #000066; color: #FFFFFF; padding: 56px 48px; display: flex; flex-direction: column; gap: 22px; justify-content: center">
+      <div class="auth-a" style="background: #000066; color: #FFFFFF; padding: 56px 48px; display: flex; flex-direction: column; gap: 22px; justify-content: center">
         <div class="eyebrow" style="color: #EFBF04">My account</div>
         <h1 class="serif h1" style="margin: 0; font-size: 44px; line-height: 1.1; color: #FFFFFF">Everything about your order, in one place.</h1>
         <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px; font-size: 16px; color: #DCDCF5">
@@ -32,7 +32,7 @@
         <p style="margin: 0; font-size: 14px; color: #B9B9E6">For Calundike customers. To ask for a price you need no account - <a href="quote-list.html" style="color: #EFBF04">send a quote list</a>.</p>
       </div>
 
-      <div style="padding: 48px; display: flex; flex-direction: column; gap: 22px">
+      <div class="auth-b" style="padding: 48px; display: flex; flex-direction: column; gap: 22px">
         <div class="tabs" role="tablist" aria-label="Sign in or activate">
           <button type="button" role="tab" class="tab" :class="{ 'tab-on': tab === 'sign' }" :aria-selected="tab === 'sign'" @click="tab = 'sign'">Sign in</button>
           <button type="button" role="tab" class="tab" :class="{ 'tab-on': tab === 'act' }" :aria-selected="tab === 'act'" @click="tab = 'act'; codeSent = false">First time here?</button>

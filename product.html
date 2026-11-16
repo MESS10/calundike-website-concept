@@ -28,7 +28,7 @@
         <div class="tabs" role="tablist" aria-label="How to see it">
           <button type="button" role="tab" class="tab" :class="{ 'tab-on': view === 'photos' }" :aria-selected="view === 'photos'" @click="view = 'photos'">Photos</button>
           <button type="button" role="tab" class="tab" :class="{ 'tab-on': view === 'spin' }" :aria-selected="view === 'spin'" @click="view = 'spin'">360° view</button>
-          <button type="button" role="tab" class="tab" :class="{ 'tab-on': view === '3d' }" :aria-selected="view === '3d'" @click="view = '3d'">3D &amp; in your room</button>
+          <button type="button" role="tab" class="tab" :class="{ 'tab-on': view === '3d' }" :aria-selected="view === '3d'" @click="view = '3d'">3D<span class="hide-sm"> &amp; in your room</span></button>
         </div>
 
         <div v-if="view === 'photos'" style="display: flex; flex-direction: column; gap: 12px">

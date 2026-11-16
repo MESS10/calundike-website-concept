@@ -29,17 +29,17 @@
 
     <div class="layout">
       <aside class="side" aria-label="Filters">
-        <div style="display: flex; flex-direction: column; gap: 6px">
-          <span style="font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #4A4A68; padding: 0 14px 6px">Room</span>
+        <div class="pill-group" role="group" aria-label="Room" style="display: flex; flex-direction: column; gap: 6px">
+          <span class="pill-title" style="font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #4A4A68; padding: 0 14px 6px">Room</span>
           <button v-for="r in rooms" :key="r" type="button" class="pill" :class="{ 'pill-on': room === r }" :aria-pressed="room === r" @click="room = r">
             <span>{{ r === 'All' ? 'All rooms' : r }}</span><span style="font-size: 13px; opacity: 0.8">{{ countIn(r) }}</span>
           </button>
         </div>
-        <div style="display: flex; flex-direction: column; gap: 6px">
-          <span style="font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #4A4A68; padding: 0 14px 6px">Show</span>
+        <div class="pill-group" role="group" aria-label="Show" style="display: flex; flex-direction: column; gap: 6px">
+          <span class="pill-title" style="font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #4A4A68; padding: 0 14px 6px">Show</span>
           <button v-for="k in kinds" :key="k.v" type="button" class="pill" :class="{ 'pill-on': kind === k.v }" :aria-pressed="kind === k.v" @click="kind = k.v"><span>{{ k.label }}</span></button>
         </div>
-        <div style="background: #FFF8DC; border-radius: 14px; padding: 18px; display: flex; flex-direction: column; gap: 10px">
+        <div class="side-note" style="background: #FFF8DC; border-radius: 14px; padding: 18px; display: flex; flex-direction: column; gap: 10px">
           <strong style="color: #000066">Need another size?</strong>
           <span style="font-size: 14px; line-height: 1.55; color: #3A3A58">Any piece can be made to your measurements and finish.</span>
           <a href="quote-list.html" style="font-weight: 600; font-size: 14px">Request a custom quote →</a>
