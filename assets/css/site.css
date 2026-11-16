@@ -9,9 +9,6 @@ img { max-width: 100%; }
 .serif { font-family: Fraunces, Georgia, serif; font-weight: 600; letter-spacing: -0.01em; }
 .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; }
 
-/* Concept banner */
-.concept { background: #FFF8DC; color: #4D3D00; font-size: 13px; text-align: center; padding: 8px 16px; border-bottom: 1px solid #F1E3A6; }
-
 /* Header */
 .hdr { background: #FFFFFF; border-bottom: 1px solid #E4E4EE; }
 .hdr-in { display: flex; align-items: center; gap: 32px; min-height: 80px; flex-wrap: wrap; }
