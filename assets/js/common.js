@@ -72,7 +72,6 @@
     phones: '(0242) 132909 · 132982 · 133010-12',
     email: 'sales@calundike.co.zw',
     tour: 'https://www.calundike.co.zw/showroom/',
-    warranty: 'https://www.calundike.co.zw/calundike-structural-warranty/',
     maps: 'https://www.google.com/maps/search/?api=1&query=171+Mupfuti+Road+Ruwa+Zimbabwe'
   };
   function byId(id) {
@@ -149,7 +148,7 @@
       '<div style="display: flex; flex-direction: column; gap: 10px; font-size: 15px"><span style="color: #FFFFFF; font-weight: 600">Shop</span>' +
       '<a href="catalogue.html">Catalogue</a><a href="index.html#made">Made to measure</a><a href="quote-list.html">Your quote list</a><a :href="C.tour" target="_blank" rel="noopener">360° showroom tour</a></div>' +
       '<div style="display: flex; flex-direction: column; gap: 10px; font-size: 15px"><span style="color: #FFFFFF; font-weight: 600">Your order</span>' +
-      '<a href="account.html">My account</a><a href="index.html#how">How quoting works</a><a :href="C.warranty" target="_blank" rel="noopener">5-year structural warranty</a><a href="index.html#about">About Calundike</a></div>' +
+      '<a href="account.html">My account</a><a href="index.html#how">How quoting works</a><a href="index.html#about">About Calundike</a></div>' +
       '<div style="display: flex; flex-direction: column; gap: 10px; font-size: 15px"><span style="color: #FFFFFF; font-weight: 600">Talk to us</span>' +
       '<span>{{ C.address }}<br>{{ C.where }}</span><span>{{ C.phones }}</span><a :href="\'mailto:\' + C.email">{{ C.email }}</a><span>WhatsApp: [number]</span></div>' +
       '</div>' +
