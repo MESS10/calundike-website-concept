@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>My account - Calundike Exports (design concept)</title>
+<link rel="icon" type="image/svg+xml" href="assets/img/calundike-icon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&amp;family=Inter:wght@400;500;600;700&amp;display=swap">
+<link rel="stylesheet" href="assets/css/site.css">
+<script src="https://unpkg.com/vue@3.4.38/dist/vue.global.prod.js"></script>
+<script src="assets/js/common.js"></script>
+</head>
+<body class="soft">
+<div id="app" v-cloak style="min-height: 100vh; display: flex; flex-direction: column">
+
+<site-header active="account"></site-header>
+
+<main style="flex: 1 1 auto; padding: 48px 0 88px">
+  <div class="wrap">
+
+    <!-- Signed out -->
+    <div v-if="!signedIn" class="auth">
+      <div style="background: #000066; color: #FFFFFF; padding: 56px 48px; display: flex; flex-direction: column; gap: 22px; justify-content: center">
+        <div class="eyebrow" style="color: #EFBF04">My account</div>
+        <h1 class="serif h1" style="margin: 0; font-size: 44px; line-height: 1.1; color: #FFFFFF">Everything about your order, in one place.</h1>
+        <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px; font-size: 16px; color: #DCDCF5">
+          <li v-for="t in perks" :key="t" style="display: flex; gap: 10px; align-items: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#EFBF04" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>{{ t }}</li>
+        </ul>
+        <p style="margin: 0; font-size: 14px; color: #B9B9E6">For Calundike customers. To ask for a price you need no account - <a href="quote-list.html" style="color: #EFBF04">send a quote list</a>.</p>
+      </div>
+
+      <div style="padding: 48px; display: flex; flex-direction: column; gap: 22px">
+        <div class="tabs" role="tablist" aria-label="Sign in or activate">
+          <button type="button" role="tab" class="tab" :class="{ 'tab-on': tab === 'sign' }" :aria-selected="tab === 'sign'" @click="tab = 'sign'">Sign in</button>
+          <button type="button" role="tab" class="tab" :class="{ 'tab-on': tab === 'act' }" :aria-selected="tab === 'act'" @click="tab = 'act'; codeSent = false">First time here?</button>
+        </div>
+
+        <div v-if="tab === 'sign'" style="display: flex; flex-direction: column; gap: 18px">
+          <div class="field"><label for="a-user">Mobile number or e-mail</label><input id="a-user" class="inp" type="text" autocomplete="off"></div>
+          <div class="field"><label for="a-pass">Password</label><input id="a-pass" class="inp" type="password" autocomplete="off"></div>
+          <button type="button" class="btn btn-gold" style="width: 100%" @click="signedIn = true">Sign in</button>
+          <p style="margin: 0; font-size: 14px; color: #3A3A58">Forgot your password? Reset it - we send a code to the number or e-mail on your customer record.</p>
+          <p style="margin: 0; font-size: 13px; color: #4A4A68">Concept: any (or no) details sign you in to a sample account. Nothing you type is sent anywhere.</p>
+        </div>
+
+        <div v-if="tab === 'act'" style="display: flex; flex-direction: column; gap: 18px">
+          <template v-if="!codeSent">
+            <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #3A3A58">Use the mobile number or e-mail Calundike already has for you - on your quotation or invoice. We send a code there, so only you can open your account.</p>
+            <div class="field"><label for="a-who">Mobile number or e-mail</label><input id="a-who" class="inp" type="text" autocomplete="off"></div>
+            <button type="button" class="btn btn-navy" style="width: 100%" @click="codeSent = true">Send me a code</button>
+          </template>
+          <template v-else>
+            <div class="ok">A 6-digit code is on its way by WhatsApp to the number ending 489. It expires in 10 minutes. (Concept - no code is sent.)</div>
+            <div class="field"><label for="a-code">Code</label><input id="a-code" class="inp" type="text" inputmode="numeric" autocomplete="off" maxlength="6" style="letter-spacing: 0.4em; font-size: 20px"></div>
+            <div class="field"><label for="a-new">Choose a password</label><input id="a-new" class="inp" type="password" autocomplete="off"></div>
+            <button type="button" class="btn btn-gold" style="width: 100%" @click="signedIn = true">Activate and sign in</button>
+            <p style="margin: 0; font-size: 13px; color: #4A4A68">No code? Choose SMS or e-mail instead, or call the showroom.</p>
+          </template>
+        </div>
+      </div>
+    </div>
+
+    <!-- Signed in (sample account) -->
+    <div v-else style="display: flex; flex-direction: column; gap: 28px">
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap">
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <span style="font-size: 14px; color: #4A4A68">My account (sample)</span>
+          <h1 class="serif h1" style="margin: 0; font-size: 40px; color: #000066">Good afternoon, [customer name]</h1>
+        </div>
+        <button type="button" class="btn btn-line btn-sm" @click="signedIn = false; tab = 'sign'; codeSent = false">Sign out</button>
+      </div>
+
+      <div class="tiles">
+        <div class="panel" style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 14px; color: #4A4A68">Open orders</span><span class="serif" style="font-size: 36px; color: #000066">1</span></div>
+        <div class="panel" style="display: flex; flex-direction: column; gap: 6px; border-color: #F1E3A6; background: #FFF8DC"><span style="font-size: 14px; color: #5C4A00">Quotations waiting for you</span><span class="serif" style="font-size: 36px; color: #000066">1</span></div>
+        <div class="panel" style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 14px; color: #4A4A68">Balance due</span><span class="serif" style="font-size: 36px; color: #000066">US$ [amount]</span></div>
+      </div>
+
+      <section class="panel" style="display: flex; flex-direction: column; gap: 22px" aria-label="Your order">
+        <div style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap">
+          <img src="assets/img/dining.jpg" alt="" style="width: 64px; height: 64px; object-fit: cover; border-radius: 10px">
+          <img src="assets/img/wardrobe.jpg" alt="" style="width: 64px; height: 64px; object-fit: cover; border-radius: 10px">
+          <div style="display: flex; flex-direction: column; gap: 4px">
+            <h2 class="serif" style="margin: 0; font-size: 24px">Order MOF-2026-[number]</h2>
+            <span style="font-size: 14px; color: #4A4A68">Six-seater dining set · Wardrobe, made to measure</span>
+          </div>
+        </div>
+        <div class="track" role="list" aria-label="Order progress">
+          <div v-for="(s, i) in steps" :key="s" role="listitem" class="tk" :class="i < now ? 'tk-done' : (i === now ? 'tk-now' : '')"><span class="tk-bar"></span><span>{{ s }}</span></div>
+        </div>
+        <p style="margin: 0; font-size: 15px; color: #3A3A58"><strong style="color: #000066">Now:</strong> in production in our workshop. Next comes the quality check.</p>
+      </section>
+
+      <section class="panel" style="display: flex; flex-direction: column; gap: 16px; border-color: #F1E3A6" aria-label="Quotations">
+        <h2 class="serif" style="margin: 0; font-size: 24px">Quotations waiting for you</h2>
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; padding: 16px; border-radius: 12px; background: #FFF8DC">
+          <div style="display: flex; gap: 14px; align-items: center">
+            <img src="assets/img/sofa-front.jpg" alt="" style="width: 56px; height: 56px; object-fit: cover; border-radius: 10px">
+            <div style="display: flex; flex-direction: column; gap: 4px">
+              <strong>Quotation [number] · Three-seater lounge suite</strong>
+              <span style="font-size: 14px; color: #3A3A58">US$ [amount] incl. VAT · valid until [date]</span>
+            </div>
+          </div>
+          <a href="product.html?id=lounge" class="btn btn-gold btn-sm">Review and accept</a>
+        </div>
+        <p style="margin: 0; font-size: 13px; color: #4A4A68">Accepting works as it does today: read the terms, then confirm with a one-time code.</p>
+      </section>
+
+      <section class="panel" style="display: flex; flex-direction: column; gap: 16px" aria-label="Invoices and payments">
+        <h2 class="serif" style="margin: 0; font-size: 24px">Invoices and payments</h2>
+        <div style="overflow-x: auto; border-radius: 12px; border: 1px solid #E4E4EE">
+          <table class="tbl">
+            <thead><tr><th>Document</th><th>Date</th><th>Total</th><th>Paid</th><th>Balance</th></tr></thead>
+            <tbody>
+              <tr><td>Proforma [number]</td><td>[date]</td><td>US$ [amount]</td><td>US$ [amount]</td><td><strong>US$ [amount]</strong></td></tr>
+              <tr><td>Receipt [number]</td><td>[date]</td><td>-</td><td>US$ [amount]</td><td>-</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel" style="display: flex; flex-direction: column; gap: 16px" aria-label="Documents">
+        <h2 class="serif" style="margin: 0; font-size: 24px">Your documents</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px">
+          <a v-for="d in docs" :key="d" href="#" class="doc" @click.prevent>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M12 18v-6M9 15l3 3 3-3"/></svg>
+            <span style="display: flex; flex-direction: column"><strong style="font-size: 15px">{{ d }}</strong><span style="font-size: 13px; color: #4A4A68">PDF</span></span>
+          </a>
+        </div>
+      </section>
+
+      <p style="margin: 0; font-size: 14px; color: #3A3A58">To change your phone number or e-mail, contact us - so nobody else can send your quotations somewhere else.</p>
+    </div>
+  </div>
+</main>
+
+<site-footer></site-footer>
+
+</div>
+<script>
+CK.mount(function () {
+  return {
+    signedIn: Vue.ref(false), tab: Vue.ref('sign'), codeSent: Vue.ref(false),
+    perks: ['Follow each order from quotation to delivery', 'Accept quotations', 'See invoices, payments and your balance', 'Download your documents'],
+    steps: ['Request received', 'Quotation accepted', 'In production', 'Quality checked', 'Ready for delivery', 'Delivered'],
+    now: 2,
+    docs: ['Quotation', 'Proforma invoice', 'Drawing (made to measure)', 'Receipt']
+  };
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Your quote list - Calundike Exports (design concept)</title>
+<link rel="icon" type="image/svg+xml" href="assets/img/calundike-icon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&amp;family=Inter:wght@400;500;600;700&amp;display=swap">
+<link rel="stylesheet" href="assets/css/site.css">
+<script src="https://unpkg.com/vue@3.4.38/dist/vue.global.prod.js"></script>
+<script src="assets/js/common.js"></script>
+</head>
+<body class="soft">
+<div id="app" v-cloak style="min-height: 100vh; display: flex; flex-direction: column">
+
+<site-header></site-header>
+
+<main style="flex: 1 1 auto; padding: 40px 0 88px">
+  <div class="wrap" style="display: flex; flex-direction: column; gap: 28px">
+
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap">
+      <div style="display: flex; flex-direction: column; gap: 10px">
+        <h1 class="serif h1" style="margin: 0; font-size: 44px; color: #000066">Your quote list</h1>
+        <p style="margin: 0; font-size: 16px; color: #3A3A58">No account and no payment needed. We reply with a quotation.</p>
+      </div>
+      <div class="stepper" aria-label="Progress">
+        <span class="st st-done"><span class="st-num">1</span>Quote list</span>
+        <span aria-hidden="true" style="color: #B9B9CC">-</span>
+        <span class="st" :class="sent ? 'st-done' : 'st-on'"><span class="st-num">2</span>Your details</span>
+        <span aria-hidden="true" style="color: #B9B9CC">-</span>
+        <span class="st" :class="{ 'st-on': sent }"><span class="st-num">3</span>Sent</span>
+      </div>
+    </div>
+
+    <div v-if="!sent" class="cols">
+      <!-- The list -->
+      <section class="col-list" aria-label="Pieces">
+        <div class="panel" style="padding-top: 8px; padding-bottom: 8px">
+          <div v-for="l in lines" :key="l.p.id" style="display: flex; gap: 18px; align-items: center; padding: 18px 0; border-bottom: 1px solid #EEEEF4; flex-wrap: wrap">
+            <a :href="l.p.url"><img :src="l.p.img" alt="" style="display: block; width: 88px; height: 88px; object-fit: cover; border-radius: 12px"></a>
+            <div style="flex: 1 1 220px; min-width: 0; display: flex; flex-direction: column; gap: 4px">
+              <a :href="l.p.url" class="serif" style="font-size: 19px; color: #14142B; text-decoration: none">{{ l.p.name }}</a>
+              <span style="font-size: 14px; color: #4A4A68">{{ l.p.custom ? 'Made to your measurements - put the sizes in "Anything else?"' : l.p.size }}</span>
+              <button type="button" class="linkbtn" style="align-self: flex-start" @click="remove(l.p.id)">Remove</button>
+            </div>
+            <div class="qty">
+              <button type="button" class="step" aria-label="One fewer" @click="setQty(l.p.id, Math.max(1, l.qty - 1))">−</button>
+              <span>{{ l.qty }}</span>
+              <button type="button" class="step" aria-label="One more" @click="setQty(l.p.id, l.qty + 1)">+</button>
+            </div>
+            <div style="min-width: 150px; text-align: right; display: flex; flex-direction: column; gap: 2px">
+              <span style="font-weight: 700; color: #000066">{{ l.p.custom ? 'Priced on quotation' : 'US$ [price]' }}</span>
+              <span style="font-size: 12px; color: #4A4A68">{{ l.p.custom ? 'made to order' : 'each, incl. VAT' }}</span>
+            </div>
+          </div>
+          <div v-if="!lines.length" style="padding: 32px 0; text-align: center; color: #3A3A58; display: flex; flex-direction: column; gap: 14px; align-items: center">
+            <span>Your quote list is empty.</span>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center">
+              <a href="catalogue.html" class="btn btn-navy">Browse the catalogue</a>
+              <button type="button" class="btn btn-line" @click="sample">Try it with sample pieces</button>
+            </div>
+          </div>
+          <div style="display: flex; justify-content: space-between; gap: 12px; padding: 18px 0 10px; flex-wrap: wrap">
+            <a href="catalogue.html" style="font-weight: 600">+ Add more pieces</a>
+            <a href="catalogue.html?kind=made" style="font-weight: 600">+ A piece to be made</a>
+          </div>
+        </div>
+
+        <div class="panel" style="display: flex; flex-direction: column; gap: 12px; background: #FFF8DC; border-color: #F1E3A6">
+          <div style="display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 16px">
+            <span>Standard pieces ({{ stdCount }})</span><strong style="color: #000066">US$ [total] incl. VAT</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 16px">
+            <span>Made to order ({{ customCount }})</span><strong style="color: #000066">Priced on your quotation</strong>
+          </div>
+          <p style="margin: 4px 0 0; font-size: 14px; color: #3A3A58">This is a guide. Your quotation confirms every price, delivery and when it will be ready.</p>
+        </div>
+      </section>
+
+      <!-- Details -->
+      <section class="col-form" aria-label="Your details">
+        <div class="panel" style="display: flex; flex-direction: column; gap: 18px">
+          <h2 class="serif" style="margin: 0; font-size: 26px; color: #000066">Where should we send it?</h2>
+          <div class="field">
+            <label for="q-name">Full name</label>
+            <input id="q-name" class="inp" type="text" autocomplete="name" v-model="name">
+          </div>
+          <div class="field">
+            <label for="q-phone">Mobile number (WhatsApp)</label>
+            <div style="display: flex; gap: 8px">
+              <span class="inp" style="width: auto; display: flex; align-items: center; background: #F6F6FA; color: #3A3A58">+263</span>
+              <input id="q-phone" class="inp" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="77 123 4567" v-model="phone">
+            </div>
+          </div>
+          <div class="field">
+            <label for="q-email">E-mail <span style="font-weight: 400; color: #4A4A68">(optional)</span></label>
+            <input id="q-email" class="inp" type="email" autocomplete="email">
+          </div>
+          <div class="field">
+            <label for="q-town">Town or city</label>
+            <input id="q-town" class="inp" type="text" autocomplete="address-level2">
+          </div>
+          <div class="field">
+            <span class="lbl">Send my quotation by</span>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap" role="radiogroup" aria-label="Send my quotation by">
+              <button v-for="w in ['WhatsApp', 'SMS', 'E-mail']" :key="w" type="button" role="radio" :aria-checked="way === w" class="opt" :class="{ 'opt-on': way === w }" @click="way = w">{{ w }}</button>
+            </div>
+          </div>
+          <div class="field">
+            <span class="lbl">Delivery</span>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap" role="radiogroup" aria-label="Delivery">
+              <button v-for="d in ['Deliver to me', 'I will collect']" :key="d" type="button" role="radio" :aria-checked="delivery === d" class="opt" :class="{ 'opt-on': delivery === d }" @click="delivery = d">{{ d }}</button>
+            </div>
+          </div>
+          <div class="field">
+            <label for="q-notes">Anything else? <span style="font-weight: 400; color: #4A4A68">(sizes, finish, when you need it)</span></label>
+            <textarea id="q-notes" class="inp"></textarea>
+          </div>
+          <label style="display: flex; gap: 12px; align-items: flex-start; font-size: 14px; line-height: 1.5; cursor: pointer">
+            <input type="checkbox" v-model="agreed" style="width: 22px; height: 22px; margin: 0; accent-color: #000066; flex: 0 0 auto">
+            <span>Calundike may contact me about this request. My details are used only for it - see the <a href="index.html#contact">privacy notice</a>.</span>
+          </label>
+          <div v-if="problem" role="alert" class="alert">{{ problem }}</div>
+          <button type="button" class="btn btn-gold btn-lg" style="width: 100%" @click="submit">Send my request</button>
+          <p style="margin: 0; font-size: 13px; color: #4A4A68; text-align: center">Already a customer? <a href="account.html">Sign in to My account</a></p>
+        </div>
+      </section>
+    </div>
+
+    <div v-else class="panel" style="max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; align-items: center; text-align: center; padding: 48px 32px">
+      <div style="width: 72px; height: 72px; border-radius: 36px; background: #EFBF04; color: #000066; display: flex; align-items: center; justify-content: center">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+      </div>
+      <h2 class="serif" style="margin: 0; font-size: 36px; color: #000066">Request received</h2>
+      <p style="margin: 0; font-size: 17px; line-height: 1.6; color: #3A3A58">Thank you, {{ firstName }}. Your reference is <strong style="color: #14142B">MOF-2026-[number]</strong>. Our sales team has it now.</p>
+      <div style="background: #F6F6FA; border-radius: 14px; padding: 20px 24px; text-align: left; width: 100%; box-sizing: border-box; display: flex; flex-direction: column; gap: 12px; font-size: 15px; line-height: 1.55">
+        <strong style="color: #000066">What happens next</strong>
+        <span>1. {{ whereLine }}</span>
+        <span>2. It holds a secure link. To accept it, you confirm with a one-time code we send you.</span>
+        <span>3. You pay at the showroom or by bank transfer, and we start your order.</span>
+      </div>
+      <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center">
+        <a href="catalogue.html" class="btn btn-navy">Keep browsing</a>
+        <a href="index.html#contact" class="btn btn-line">Chat on WhatsApp</a>
+      </div>
+      <button type="button" class="linkbtn" @click="startOver">Start a new list (concept only - nothing was sent)</button>
+    </div>
+  </div>
+</main>
+
+<site-footer></site-footer>
+
+</div>
+<script>
+CK.mount(function () {
+  var name = Vue.ref(''), phone = Vue.ref(''), way = Vue.ref('WhatsApp'), delivery = Vue.ref('Deliver to me');
+  var agreed = Vue.ref(false), problem = Vue.ref(''), sent = Vue.ref(false);
+  var lines = Vue.computed(function () {
+    return Object.keys(CK.store.q).map(function (id) { return { p: CK.byId(id), qty: CK.store.q[id] }; })
+      .filter(function (l) { return l.p; });
+  });
+  var digits = Vue.computed(function () { return String(phone.value || '').replace(/[^0-9]/g, ''); });
+  return {
+    name: name, phone: phone, way: way, delivery: delivery, agreed: agreed, problem: problem, sent: sent, lines: lines,
+    setQty: CK.setQty,
+    remove: function (id) { CK.setQty(id, 0); },
+    sample: function () { CK.setQty('lounge', 1); CK.setQty('dining', 1); CK.setQty('unit', 1); },
+    stdCount: Vue.computed(function () { return lines.value.filter(function (l) { return !l.p.custom; }).length; }),
+    customCount: Vue.computed(function () { return lines.value.filter(function (l) { return l.p.custom; }).length; }),
+    submit: function () {
+      if (!lines.value.length) { problem.value = 'Your quote list is empty - add at least one piece.'; return; }
+      if (!name.value.trim()) { problem.value = 'Please enter your full name.'; return; }
+      if (digits.value.length < 9) { problem.value = 'Please enter your mobile number, so we can send the quotation.'; return; }
+      if (!agreed.value) { problem.value = 'Please tick the box so we may contact you about this request.'; return; }
+      problem.value = '';
+      sent.value = true;
+      window.scrollTo(0, 0);
+    },
+    firstName: Vue.computed(function () { return name.value.trim().split(' ')[0] || 'you'; }),
+    whereLine: Vue.computed(function () {
+      return way.value === 'E-mail'
+        ? 'Your quotation comes by e-mail to the address you gave.'
+        : 'Your quotation comes by ' + way.value + ' to the number ending ' + (digits.value.length >= 3 ? digits.value.slice(-3) : '...') + '.';
+    }),
+    startOver: function () { Object.keys(CK.store.q).forEach(function (id) { CK.setQty(id, 0); }); sent.value = false; }
+  };
+});
+</script>
+</body>
+</html>

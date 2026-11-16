@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Product - Calundike Exports (design concept)</title>
+<link rel="icon" type="image/svg+xml" href="assets/img/calundike-icon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&amp;family=Inter:wght@400;500;600;700&amp;display=swap">
+<link rel="stylesheet" href="assets/css/site.css">
+<script src="https://unpkg.com/vue@3.4.38/dist/vue.global.prod.js"></script>
+<script src="assets/js/common.js"></script>
+</head>
+<body>
+<div id="app" v-cloak style="min-height: 100vh; display: flex; flex-direction: column">
+
+<site-header active="catalogue"></site-header>
+
+<main style="flex: 1 1 auto; padding: 32px 0 96px">
+  <div class="wrap" style="display: flex; flex-direction: column; gap: 32px">
+    <nav aria-label="Breadcrumb" style="font-size: 14px; color: #4A4A68"><a href="index.html">Home</a> / <a href="catalogue.html">Catalogue</a> / <a :href="'catalogue.html?room=' + encodeURIComponent(p.room)">{{ p.room }}</a> / {{ p.name }}</nav>
+
+    <div class="prod">
+      <!-- Viewer -->
+      <div style="display: flex; flex-direction: column; gap: 16px">
+        <div class="tabs" role="tablist" aria-label="How to see it">
+          <button type="button" role="tab" class="tab" :class="{ 'tab-on': view === 'photos' }" :aria-selected="view === 'photos'" @click="view = 'photos'">Photos</button>
+          <button type="button" role="tab" class="tab" :class="{ 'tab-on': view === 'spin' }" :aria-selected="view === 'spin'" @click="view = 'spin'">360° view</button>
+          <button type="button" role="tab" class="tab" :class="{ 'tab-on': view === '3d' }" :aria-selected="view === '3d'" @click="view = '3d'">3D &amp; in your room</button>
+        </div>
+
+        <div v-if="view === 'photos'" style="display: flex; flex-direction: column; gap: 12px">
+          <img class="pic r43" :src="photo.src" :alt="p.name + ', ' + photo.label.toLowerCase()" style="border-radius: 18px">
+          <div v-if="p.photos.length > 1" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px">
+            <button v-for="(ph, i) in p.photos" :key="i" type="button" class="thumb" :class="{ 'thumb-on': thumb === i }" :aria-label="'Show the ' + ph.label.toLowerCase() + ' photo'" @click="thumb = i">
+              <img :src="ph.src" alt="">
+            </button>
+          </div>
+        </div>
+
+        <div v-if="view === 'spin'" style="display: flex; flex-direction: column; gap: 14px">
+          <div style="position: relative">
+            <img class="pic r43" :src="p.img" :alt="p.name + ', turning'" style="border-radius: 18px">
+            <div style="position: absolute; left: 16px; bottom: 16px; background: rgba(255, 255, 255, 0.94); border-radius: 12px; padding: 10px 14px; display: flex; gap: 10px; align-items: center">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#000066" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 3v6h-6"/></svg>
+              <span style="font-size: 14px"><strong>Frame {{ frame }} of 36</strong> · drag across the picture to turn it</span>
+            </div>
+          </div>
+          <label style="display: flex; flex-direction: column; gap: 8px; font-size: 14px; color: #3A3A58">Turn
+            <input type="range" min="1" max="36" step="1" v-model.number="frame" style="width: 100%; accent-color: #000066">
+          </label>
+          <p style="margin: 0; font-size: 13px; color: #4A4A68">Concept: the real spin is made from 24-36 photos of one piece taken on a turntable - a camera on a stand is enough.</p>
+        </div>
+
+        <div v-if="view === '3d'" style="display: flex; flex-direction: column; gap: 14px">
+          <div class="ph" style="aspect-ratio: 4 / 3">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4a2 2 0 0 0 1-1.7z"/><path d="M3.3 7 12 12l8.7-5M12 22V12"/></svg>
+            <span style="font-size: 16px; color: #14142B; font-weight: 600">3D model - for selected pieces</span>
+            <span>Spin, zoom and look underneath. On a phone, "View in your room" places it at real size through the camera.</span>
+          </div>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center">
+            <button type="button" class="btn btn-line" disabled>View in your room</button>
+            <span style="font-size: 13px; color: #4A4A68">Waiting on the 3D route (drawing office CAD - on hold).</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Buy box -->
+      <div style="display: flex; flex-direction: column; gap: 20px">
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <span style="font-size: 14px; color: #4A4A68; font-weight: 500">{{ p.room }} · Code [item code]</span>
+          <h1 class="serif h1" style="margin: 0; font-size: 44px; line-height: 1.1; color: #000066">{{ p.name }}</h1>
+        </div>
+        <div style="display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap">
+          <span style="font-size: 30px; font-weight: 700; color: #000066">{{ p.price }}</span>
+          <span v-if="!p.custom" style="font-size: 15px; color: #4A4A68">incl. VAT · confirmed on your quotation</span>
+        </div>
+        <p style="margin: 0; font-size: 16px; line-height: 1.65; color: #3A3A58">[Two or three lines from the product document: what it is, what it is made of, why it lasts.]</p>
+
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <span style="font-size: 15px"><strong>Finish:</strong> {{ finishes[finish].name }}</span>
+          <div style="display: flex; gap: 12px">
+            <button v-for="(f, i) in finishes" :key="f.name" type="button" class="sw" :class="{ 'sw-on': finish === i }" :style="{ background: f.color }" :aria-label="f.name" :aria-pressed="finish === i" @click="finish = i"></button>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 14px; align-items: center; flex-wrap: wrap">
+          <span style="font-size: 15px; font-weight: 600">Quantity</span>
+          <div class="qty">
+            <button type="button" class="step" aria-label="One fewer" @click="qty = Math.max(1, qty - 1)">−</button>
+            <span aria-live="polite">{{ qty }}</span>
+            <button type="button" class="step" aria-label="One more" @click="qty = Math.min(99, qty + 1)">+</button>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 12px">
+          <button v-if="!inList(p.id)" type="button" class="btn btn-gold btn-lg" style="width: 100%" @click="add">Add to quote list</button>
+          <a v-else href="quote-list.html" class="btn btn-added btn-lg" style="width: 100%">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+            Added ({{ store.q[p.id] }}) - view your quote list
+          </a>
+          <a href="index.html#contact" class="btn btn-line btn-lg" style="width: 100%">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.4 8.4 0 1 1 21 11.5z"/></svg>
+            Ask about this on WhatsApp
+          </a>
+        </div>
+
+        <ul style="margin: 4px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 15px; color: #3A3A58">
+          <li v-for="t in promises" :key="t" style="display: flex; gap: 10px; align-items: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000066" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>{{ t }}</li>
+        </ul>
+
+        <div>
+          <details open>
+            <summary>Dimensions</summary>
+            <dl style="margin: 0 0 16px; display: grid; grid-template-columns: 140px minmax(0, 1fr); gap: 10px 16px; font-size: 15px">
+              <dt style="color: #4A4A68">Width</dt><dd style="margin: 0">[mm]</dd>
+              <dt style="color: #4A4A68">Depth</dt><dd style="margin: 0">[mm]</dd>
+              <dt style="color: #4A4A68">Height</dt><dd style="margin: 0">[mm]</dd>
+            </dl>
+          </details>
+          <details>
+            <summary>Materials and finish</summary>
+            <p style="margin: 0 0 16px; font-size: 15px; line-height: 1.6; color: #3A3A58">[Frame, upholstery, finish - from the product document.]</p>
+          </details>
+          <details>
+            <summary>Need a different size?</summary>
+            <p style="margin: 0 0 16px; font-size: 15px; line-height: 1.6; color: #3A3A58">We can make it to your measurements. <a href="quote-list.html">Request a custom quote</a> and our drawing office prepares the drawing and price.</p>
+          </details>
+        </div>
+      </div>
+    </div>
+
+    <!-- Related -->
+    <section style="display: flex; flex-direction: column; gap: 24px; margin-top: 48px">
+      <h2 class="serif" style="margin: 0; font-size: 32px; color: #000066">Goes well with</h2>
+      <div class="grid4">
+        <a v-for="r in related" :key="r.id" :href="r.url" class="card" style="text-decoration: none; color: #14142B">
+          <img class="pic r11" :src="r.img" :alt="r.name">
+          <div style="padding: 16px; display: flex; flex-direction: column; gap: 6px">
+            <span class="serif" style="font-size: 18px">{{ r.name }}</span>
+            <span style="font-weight: 700; color: #000066">{{ r.price }} <span style="font-weight: 400; font-size: 13px; color: #4A4A68">{{ r.priceNote }}</span></span>
+          </div>
+        </a>
+      </div>
+    </section>
+  </div>
+</main>
+
+<site-footer></site-footer>
+
+</div>
+<script>
+CK.mount(function () {
+  var p = CK.byId(CK.param('id')) || CK.byId('lounge');
+  document.title = p.name + ' - Calundike Exports (design concept)';
+  var thumb = Vue.ref(0);
+  var qty = Vue.ref(1);
+  var related = CK.products.filter(function (x) { return x.room === p.room && x.id !== p.id; });
+  CK.products.forEach(function (x) { if (related.length < 4 && x.id !== p.id && related.indexOf(x) < 0) { related.push(x); } });
+  return {
+    p: p,
+    view: Vue.ref('photos'),
+    thumb: thumb,
+    photo: Vue.computed(function () { return p.photos[thumb.value] || p.photos[0]; }),
+    frame: Vue.ref(1),
+    finish: Vue.ref(1),
+    finishes: [{ name: 'Light wood', color: '#D9B98C' }, { name: 'Mid wood', color: '#9A6A3E' }, { name: 'Dark wood', color: '#4A2E1C' }],
+    qty: qty,
+    add: function () { CK.setQty(p.id, qty.value); },
+    promises: p.custom
+      ? ['Made in our own workshop to your measurements', 'A drawing and price for you to approve first', 'Delivery or collection - your choice on the quotation']
+      : ['Made in our own workshop', 'Ready in [lead time] after you accept and pay', 'Delivery or collection - your choice on the quotation'],
+    related: related.slice(0, 4)
+  };
+});
+</script>
+</body>
+</html>
