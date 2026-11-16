@@ -40,6 +40,12 @@ img { max-width: 100%; }
 /* Grids */
 .grid4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
 .grid3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.grid5 { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 1040px) { .grid5 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 900px) { .grid2 { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 640px) { .grid5 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 420px) { .grid5 { grid-template-columns: minmax(0, 1fr); } }
 .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; align-items: center; }
 .hero { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 56px; align-items: center; }
 .card { background: #FFFFFF; border: 1px solid #E4E4EE; border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; }

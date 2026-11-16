@@ -39,9 +39,9 @@
         <img class="pic r54" src="assets/img/products/sapphire-boardroom.jpg" alt="The Sapphire boardroom table in a boardroom" style="border-radius: 20px">
         <div class="float-card" style="position: absolute; left: -24px; bottom: -28px; background: #FFFFFF; color: #14142B; border-radius: 14px; padding: 16px 18px; box-shadow: 0 12px 32px rgba(0, 0, 40, 0.25); display: flex; gap: 12px; align-items: center; max-width: 300px">
           <div style="width: 44px; height: 44px; border-radius: 22px; background: #FFF4CC; display: flex; align-items: center; justify-content: center; flex: 0 0 auto; color: #000066">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21 21 3"/><path d="M7 21H3v-4M17 3h4v4"/><path d="M8 13l3 3M11 10l3 3M14 7l3 3"/></svg>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
           </div>
-          <div style="font-size: 14px; line-height: 1.4"><strong>Your size, your finish.</strong> Any piece can be made to your specifications.</div>
+          <div style="font-size: 14px; line-height: 1.4"><strong>Built to last.</strong> Every piece carries our 5-year structural warranty.</div>
         </div>
       </div>
     </div>
@@ -52,7 +52,7 @@
     <div class="wrap grid4" style="gap: 20px">
       <div style="display: flex; gap: 12px; align-items: center"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#000066" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><path d="M7.5 7.5h.01"/></svg><span style="font-size: 15px; font-weight: 500">Prices shown, VAT included<br><span style="font-weight: 400; color: #4A4A68">Confirmed on your quotation</span></span></div>
       <div style="display: flex; gap: 12px; align-items: center"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#000066" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.4 8.4 0 1 1 21 11.5z"/></svg><span style="font-size: 15px; font-weight: 500">Quotation by WhatsApp or e-mail<br><span style="font-weight: 400; color: #4A4A68">No account needed</span></span></div>
-      <div style="display: flex; gap: 12px; align-items: center"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#000066" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg><span style="font-size: 15px; font-weight: 500">Made in Zimbabwe<br><span style="font-weight: 400; color: #4A4A68">Our factories in Ruwa and Gweru</span></span></div>
+      <div style="display: flex; gap: 12px; align-items: center"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#000066" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg><span style="font-size: 15px; font-weight: 500">Warranty on all products<br><span style="font-weight: 400; color: #4A4A68">5-year structural warranty</span></span></div>
       <div style="display: flex; gap: 12px; align-items: center"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#000066" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21 21 3"/><path d="M7 21H3v-4M17 3h4v4"/><path d="M8 13l3 3M11 10l3 3M14 7l3 3"/></svg><span style="font-size: 15px; font-weight: 500">Made to your specifications<br><span style="font-weight: 400; color: #4A4A68">Home, office and shop fittings</span></span></div>
     </div>
   </section>
@@ -185,10 +185,22 @@
           <p style="margin: 0">We pride ourselves in functional, quality, aesthetically pleasing furniture - artistically designed and customised to your specifications, delivering exceptional value for your home and office.</p>
         </div>
       </div>
-      <div class="grid3">
+      <div class="grid2">
         <div v-for="v in identity" :key="v.title" style="background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 16px; padding: 26px; display: flex; flex-direction: column; gap: 10px">
           <span class="eyebrow" style="color: #EFBF04">{{ v.title }}</span>
-          <p style="margin: 0; font-size: 15px; line-height: 1.65; color: #E4E4F7">{{ v.text }}</p>
+          <p style="margin: 0; font-size: 16px; line-height: 1.65; color: #E4E4F7">{{ v.text }}</p>
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 16px">
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <span class="eyebrow" style="color: #EFBF04">Values</span>
+          <p style="margin: 0; font-size: 16px; line-height: 1.6; color: #DCDCF5">We deliver value to our clients, employees and shareholders by upholding the following core values:</p>
+        </div>
+        <div class="grid5">
+          <div v-for="v in values" :key="v.name" style="background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 16px; padding: 22px; display: flex; flex-direction: column; gap: 8px">
+            <span class="serif" style="font-size: 19px; color: #FFFFFF">{{ v.name }}</span>
+            <p style="margin: 0; font-size: 14px; line-height: 1.6; color: #E4E4F7">{{ v.text }}</p>
+          </div>
         </div>
       </div>
     </div>
@@ -250,9 +262,15 @@ CK.mount(function () {
     ],
     services: ['Kitchens and built-in cupboards', 'Doors', 'Shop fittings', 'Aluminium partitioning', 'Drywall partitioning', 'Shower cubicles', 'Wall cladding'],
     identity: [
-      { title: 'Vision', text: 'To be the leading manufacturer of wood products at world class standards globally.' },
-      { title: 'Mission', text: 'We provide quality wood products to all our customers with due care to the environment, adding value to all stakeholders through an accountable, courteous, disciplined, honest and well-motivated team.' },
-      { title: 'Values', text: 'Diligence, Honesty, Courtesy, Teamwork and Stewardship.' }
+      { title: 'Vision', text: 'To be the leading and trusted manufacturer of wood and allied products through the provision of quality custom design space management solutions at World Class Standards Globally.' },
+      { title: 'Mission', text: 'We commit to provide quality wood and allied products to all our customers through sustainable processes. We endeavour to add value to all stakeholders through continuous adoption of cutting-edge technology and innovation, driven by well-trained and motivated teams.' }
+    ],
+    values: [
+      { name: 'Honesty', text: 'Our conduct stems from within and is guided by fairness and transparency in our bid to meet our promises.' },
+      { name: 'Courtesy', text: 'We hold our stakeholders in honour and respect.' },
+      { name: 'Diligence', text: 'We exercise due care consistently and earnestly, keeping high quality standards.' },
+      { name: 'Stewardship', text: "We exist to protect and enhance stakeholders' value and interest." },
+      { name: 'Team Work', text: 'Our collective effort gives us the cutting edge.' }
     ]
   };
 });
