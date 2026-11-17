@@ -177,6 +177,9 @@ CK.mount(function () {
       if (!agreed.value) { problem.value = 'Please tick the box so we may contact you about this request.'; return; }
       problem.value = '';
       sent.value = true;
+      // As on the real site: once the request is sent the list is empty - the header's number goes back to 0 and
+      // stays there after a refresh. (Nothing is sent from this concept; the list is simply emptied.)
+      Object.keys(CK.store.q).forEach(function (id) { CK.setQty(id, 0); });
       window.scrollTo(0, 0);
     },
     firstName: Vue.computed(function () { return name.value.trim().split(' ')[0] || 'you'; }),
